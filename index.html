@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Kingdom</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffeef8 50%, #f0e9ff 100%);
+            color: #5e35b1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/light-paper-fibers.png');
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .header {
+            width: 100%;
+            padding: 20px 0;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(94, 53, 177, 0.2);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            padding: 15px 60px;
+            background: linear-gradient(to right, #7c4dff, #ff6bff);
+            border-radius: 6px;
+            box-shadow: 0 8px 32px rgba(124, 77, 255, 0.4);
+        }
+
+        .header-title {
+            font-size: 42px;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 255, 255, 0.5);
+            margin: 0;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .header-subtitle {
+            font-size: 18px;
+            margin-top: 8px;
+            color: #e1d8ff;
+            letter-spacing: 5px;
+            font-weight: 400;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: #f42ed9;
+            border-radius: 55%;
+            opacity: 0;
+            animation: twinkle 1s infinite;
+        }
+
+        @keyframes twinkle {
+            0% {opacity: 0;}
+            50% {opacity: 1;}
+            100% {opacity: 0;}
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            width: 100%;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tab {
+            padding: 15px 50px;
+            margin: 0 10px;
+            background: linear-gradient(45deg, #7c4dff, #ff6bff);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(124, 77, 255, 0.3);
+            border: none;
+            text-decoration: none;
+        }
+
+        .tab:hover {
+            background: linear-gradient(45deg, #ff6bff, #7c4dff);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(255, 107, 255, 0.4);
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+            padding: 0 20px;
+            z-index: 1;
+        }
+
+        .theme-image {
+            width: 100%;
+            max-width: 90%;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .theme-image img {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+            transition: transform 0.3s;
+            filter: brightness(0.95);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .theme-image img:hover {
+            transform: scale(1.02);
+            filter: brightness(1);
+        }
+
+        .theme-image::after {
+            content: "Experience the Magic";
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(124, 77, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .state-selection-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border: 1px solid rgba(94, 53, 177, 0.2);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .state-selection-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #7c4dff, #ff6bff, #ff9ff3, #feca57);
+            z-index: 1;
+        }
+
+        .state-selection-container h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #5e35b1;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .state-selection-container h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, #7c4dff, #ff6bff);
+            border-radius: 3px;
+        }
+
+        .state-selection {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .state {
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(231, 220, 255, 0.9));
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.4s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            width: 200px;
+            min-height: 180px;
+            border: 1px solid rgba(94, 53, 177, 0.2);
+        }
+
+        .state::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 30%, rgba(124, 77, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .state:hover::before {
+            opacity: 1;
+        }
+
+        .state img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(124, 77, 255, 0.5);
+            transition: transform 0.4s, border-color 0.4s;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(124, 77, 255, 0.2);
+        }
+
+        .state span {
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s;
+            margin-top: 10px;
+            position: relative;
+            color: #5e35b1;
+        }
+
+        .state span::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #7c4dff;
+            transition: width 0.3s;
+        }
+
+        .state:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(124, 77, 255, 0.2);
+            background: linear-gradient(135deg, rgba(231, 220, 255, 0.9), rgba(210, 190, 255, 0.9));
+        }
+
+        .state:hover img {
+            transform: scale(1.15) rotate(5deg);
+            border-color: rgba(124, 77, 255, 0.9);
+        }
+
+        .state:hover span::after {
+            width: 80%;
+        }
+
+        .state.selected {
+            background: linear-gradient(135deg, rgba(210, 190, 255, 0.9), rgba(186, 160, 255, 0.9));
+            transform: translateY(-8px);
+        }
+
+        .state.selected img {
+            border-color: #7c4dff;
+            box-shadow: 0 0 20px rgba(124, 77, 255, 0.4);
+        }
+
+        .state.selected span {
+            color: #5e35b1;
+            font-weight: 800;
+        }
+
+        .book-btn {
+            background: linear-gradient(45deg, #7c4dff, #ff6bff);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 16px 32px;
+            font-size: 20px;
+            width: 80%;
+            max-width: 400px;
+            margin: 30px auto 0;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(124, 77, 255, 0.4);
+            transition: all 0.3s;
+            font-weight: bold;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            text-align: center;
+        }
+
+        .book-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.7s;
+        }
+
+        .book-btn:hover {
+            background: linear-gradient(45deg, #ff6bff, #7c4dff);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(255, 107, 255, 0.5);
+        }
+
+        .book-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Feedback Form Styles */
+        .feedback-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(124, 77, 255, 0.15);
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(94, 53, 177, 0.2);
+        }
+
+        .feedback-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #ff9ff3, #feca57, #7c4dff);
+            z-index: 1;
+        }
+
+        .feedback-container h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #5e35b1;
+            position: relative;
+        }
+
+        .feedback-container h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #7c4dff, #ff6bff);
+            border-radius: 2px;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #5e35b1;
+            font-size: 16px;
+        }
+
+        .form-control {
+            padding: 15px;
+            border: 1px solid rgba(94, 53, 177, 0.3);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #7c4dff;
+            box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .rating-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .rating-star {
+            font-size: 30px;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .rating-star:hover,
+        .rating-star.active {
+            color: #ffc107;
+            transform: scale(1.2);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #7c4dff, #ff6bff);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(124, 77, 255, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #ff6bff, #7c4dff);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 255, 0.4);
+        }
+
+        .thank-you-message {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: rgba(124, 77, 255, 0.1);
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .thank-you-message h3 {
+            color: #5e35b1;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .thank-you-message p {
+            color: #5e35b1;
+            font-size: 16px;
+        }
+
+        .footer {
+            width: 100%;
+            padding: 25px 0;
+            background: rgba(255, 255, 255, 0.9);
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            border-top: 1px solid rgba(94, 53, 177, 0.2);
+            color: #5e35b1;
+        }
+
+        @media (max-width: 992px) {
+            .state-selection { justify-content: center; }
+            .state { width: 180px; }
+        }
+
+        @media (max-width: 768px) {
+            .state { width: 160px; min-height: 160px; }
+            .state img { width: 80px; height: 80px; }
+            .tabs { flex-wrap: wrap; }
+            .tab { margin: 5px; }
+            .state-selection-container, 
+            .feedback-container { padding: 20px; }
+            .feedback-container h2 { font-size: 28px; }
+        }
+
+        @media (max-width: 480px) {
+            .state-selection { flex-direction: column; align-items: center; }
+            .state { width: 200px; }
+            .state-selection-container h2,
+            .feedback-container h2 { font-size: 24px; }
+            .book-btn, .submit-btn { width: 100%; }
+            .header-title { font-size: 32px; }
+            .header-subtitle { font-size: 14px; letter-spacing: 3px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="stars" id="starsContainer"></div>
+        <div class="header-content">
+            <h1 class="header-title">MAGICAL KINGDOM</h1>
+            <div class="header-subtitle">where the wonders of the heavens meet the beauty of nature!</div>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <a href="attractions.html" class="tab"><i>Attractions</i></a>
+        <a href="kids.html" class="tab"><i>Kids</i></a>
+        <a href="adults.html" class="tab"><i>Adults</i></a>
+        <a href="giant-rides.html" class="tab"><i>Giant Rides</i></a>
+    </div>
+
+    <div class="main-container">
+        <div class="theme-image">
+            <img src="Gemini_Generated_Image_ke5owuke5owuke5o.jpg" alt="Magical Kingdom Main Image">
+        </div>
+
+        <div class="state-selection-container">
+            <h2>Select Your State</h2>
+            <div class="state-selection">
+                <div class="state" onclick="selectState(this, 'Maharashtra')">
+                    <img src="tamilnadu.jpg" alt="Maharashtra">
+                    <span>Maharashtra</span>
+                </div>
+                <div class="state" onclick="selectState(this, 'Karnataka')">
+                    <img src="karnataka.jpg" alt="Karnataka">
+                    <span>Karnataka</span>
+                </div>
+                <div class="state" onclick="selectState(this, 'Tamil Nadu')">
+                    <img src="uttarpradesh.jpg" alt="Tamil Nadu">
+                    <span>Tamil Nadu</span>
+                </div>
+                <div class="state" onclick="selectState(this, 'Uttar Pradesh')">
+                    <img src="mahashtra.jpg" alt="Uttar Pradesh">
+                    <span>Uttar Pradesh</span>
+                </div>
+                <div class="state" onclick="selectState(this, 'Kerala')">
+                    <img src="kerala.webp" alt="Kerala">
+                    <span>Kerala</span>
+                </div>
+                <div class="state" onclick="selectState(this, 'Delhi')">
+                    <img src="delhi.webp" alt="Delhi">
+                    <span>Delhi</span>
+                </div>
+            </div>
+            <button class="book-btn" onclick="bookTickets()"><b>Book Tickets</b></button>
+        </div>
+
+        <!-- Feedback Form Section -->
+        <div class="feedback-container">
+            <h2>Share Your Experience</h2>
+            <form id="feedbackForm" class="feedback-form">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Your Rating</label>
+                    <div class="rating-container">
+                        <span class="rating-star" data-rating="1">★</span>
+                        <span class="rating-star" data-rating="2">★</span>
+                        <span class="rating-star" data-rating="3">★</span>
+                        <span class="rating-star" data-rating="4">★</span>
+                        <span class="rating-star" data-rating="5">★</span>
+                    </div>
+                    <input type="hidden" id="rating" name="rating" value="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="feedback">Your Feedback</label>
+                    <textarea id="feedback" class="form-control" placeholder="Tell us about your experience..." required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Feedback</button>
+                
+                <div class="thank-you-message" id="thankYouMessage">
+                    <h3>Thank You!</h3>
+                    <p>We appreciate your feedback and will use it to make Magical Kingdom even better!</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Magical Kingdom. All rights reserved.
+    </div>
+
+    <script>
+        // Stars animation
+        const starsContainer = document.getElementById('starsContainer');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            starsContainer.appendChild(star);
+        }
+
+        // State selection
+        let selectedState = "";
+
+        function selectState(element, state) {
+            selectedState = state;
+            document.querySelectorAll('.state').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            console.log(`Selected state: ${selectedState}`);
+        }
+
+        function bookTickets() {
+            if (selectedState === "") {
+                alert("Please select a state before booking.");
+            } else {
+                alert(`Booking tickets for ${selectedState}!`);
+                window.location.href = "booking.html?state=" + encodeURIComponent(selectedState);
+            }
+        }
+
+        // Feedback form functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.rating-star');
+            const ratingInput = document.getElementById('rating');
+            const feedbackForm = document.getElementById('feedbackForm');
+            const thankYouMessage = document.getElementById('thankYouMessage');
+            
+            // Star rating interaction
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = this.getAttribute('data-rating');
+                    ratingInput.value = rating;
+                    
+                    stars.forEach((s, index) => {
+                        if (index < rating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+                
+                // Hover effects
+                star.addEventListener('mouseover', function() {
+                    const hoverRating = this.getAttribute('data-rating');
+                    stars.forEach((s, index) => {
+                        if (index < hoverRating) {
+                            s.style.color = '#ffc107';
+                        }
+                    });
+                });
+                
+                star.addEventListener('mouseout', function() {
+                    const currentRating = ratingInput.value;
+                    stars.forEach((s, index) => {
+                        if (index >= currentRating) {
+                            s.style.color = '#ddd';
+                        }
+                    });
+                });
+            });
+            
+            // Form submission
+            feedbackForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (ratingInput.value === "0") {
+                    alert("Please select a rating before submitting.");
+                    return;
+                }
+                
+                // Here you would typically send the data to a server
+                // For demo, we'll just show the thank you message
+                feedbackForm.style.display = 'none';
+                thankYouMessage.style.display = 'block';
+                
+                // Reset form after 5 seconds
+                setTimeout(() => {
+                    feedbackForm.reset();
+                    stars.forEach(star => star.classList.remove('active'));
+                    ratingInput.value = "0";
+                    feedbackForm.style.display = 'block';
+                    thankYouMessage.style.display = 'none';
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>

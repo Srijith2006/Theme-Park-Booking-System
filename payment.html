@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Sky Land Theme Park</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #5e35b1;
+            --secondary-color: #7c4dff;
+            --accent-color: #ff6bff;
+            --light-color: #f2f7f5;
+            --dark-color: #2d3142;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffeef8 50%, #f0e9ff 100%);
+            margin: 0;
+            padding: 0;
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 0;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .payment-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 40px 20px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .payment-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 25px;
+            font-size: 24px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .payment-summary {
+            background-color: var(--light-color);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+        
+        .summary-row:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            color: var(--primary-color);
+            padding-top: 12px;
+        }
+        
+        .customer-info {
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--primary-color);
+            text-align: left;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(111, 185, 143, 0.2);
+        }
+        
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .payment-option {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 20px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--secondary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .payment-option.selected {
+            border-color: var(--accent-color);
+            background-color: rgba(255, 126, 95, 0.05);
+        }
+        
+        .payment-option.selected::before {
+            content: "✓";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-color);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .payment-icon {
+            font-size: 28px;
+            color: var(--primary-color);
+        }
+        
+        .payment-name {
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .proceed-btn {
+            background: var(--accent-color);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(124,77,255,0.3);
+            font-family: 'Poppins', sans-serif;
+            width: 80%;
+            max-width: 300px;
+        }
+        
+        .proceed-btn:hover {
+    
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(124,77,255,0.3);
+
+        }
+        
+        .secure-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            color: #757575;
+            font-size: 14px;
+            gap: 5px;
+        }
+        
+        .back-btn {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            color: var(--accent-color);
+        }
+        
+        .error-text {
+            color: #e53935;
+            font-size: 12px;
+            margin-top: 5px;
+            text-align: left;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .payment-container {
+                width: 85%;
+                padding: 25px 15px;
+            }
+            
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <i class="fas fa-ticket-alt"></i> MAGICAL KINGDOM
+        </div>
+    </div>
+    
+    <div class="payment-container">
+        <h2><i class="fas fa-credit-card"></i> Payment Details</h2>
+        
+        <div class="payment-summary">
+            <div class="summary-row">
+                <span>Tickets Total:</span>
+                <span id="ticket-amount">₹0</span>
+            </div>
+            <div class="summary-row">
+                <span>Food & Beverages:</span>
+                <span id="food-amount">₹0</span>
+            </div>
+            <div class="summary-row">
+                <span>GST (18%):</span>
+                <span id="gst-amount">₹0</span>
+            </div>
+            <div class="summary-row">
+                <span>Grand Total:</span>
+                <span id="total-amount">₹0</span>
+            </div>
+        </div>
+        
+        <h3>Customer Information</h3>
+        <div class="customer-info">
+            <div class="form-group">
+                <label for="customer-name">Full Name</label>
+                <input type="text" id="customer-name" placeholder="Enter your full name" required>
+                <div class="error-text" id="name-error">Please enter your full name</div>
+            </div>
+            <div class="form-group">
+                <label for="customer-email">Email Address</label>
+                <input type="email" id="customer-email" placeholder="Enter your email address" required>
+                <div class="error-text" id="email-error">Please enter a valid email address</div>
+            </div>
+            <div class="form-group">
+                <label for="customer-phone">Phone Number</label>
+                <input type="tel" id="customer-phone" placeholder="Enter your phone number" required>
+                <div class="error-text" id="phone-error">Please enter a valid phone number</div>
+            </div>
+        </div>
+        
+        <h3>Select Payment Method</h3>
+        
+        <div class="payment-options">
+            <div class="payment-option" onclick="selectPayment(this, 'Google Pay')">
+                <i class="fab fa-google-pay payment-icon"></i>
+                <span class="payment-name">Google Pay</span>
+            </div>
+            <div class="payment-option" onclick="selectPayment(this, 'Credit Card')">
+                <i class="far fa-credit-card payment-icon"></i>
+                <span class="payment-name">Credit Card</span>
+            </div>
+            <div class="payment-option" onclick="selectPayment(this, 'Debit Card')">
+                <i class="fas fa-credit-card payment-icon"></i>
+                <span class="payment-name">Debit Card</span>
+            </div>
+            <div class="payment-option" onclick="selectPayment(this, 'UPI')">
+                <i class="fas fa-mobile-alt payment-icon"></i>
+                <span class="payment-name">UPI</span>
+            </div>
+        </div>
+        
+        <button class="proceed-btn" onclick="proceedPayment()">
+            <i class="fas fa-lock"></i> Pay Securely
+        </button><br>
+        
+        <div class="secure-info">
+            <i class="fas fa-shield-alt"></i> Your information is secure and encrypted
+        </div>
+        
+        <a href="booking.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to booking
+        </a>
+    </div>
+    
+    <script>
+        let selectedPayment = '';
+        
+        function selectPayment(element, method) {
+            // Remove selected class from all options
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            selectedPayment = method;
+        }
+        
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        
+        function validatePhone(phone) {
+            const re = /^\d{10}$/;
+            return re.test(phone);
+        }
+        
+        function proceedPayment() {
+            // Validate customer information
+            const customerName = document.getElementById('customer-name').value.trim();
+            const customerEmail = document.getElementById('customer-email').value.trim();
+            const customerPhone = document.getElementById('customer-phone').value.trim();
+            
+            let isValid = true;
+            
+            // Validate name
+            if (customerName === '') {
+                document.getElementById('name-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('name-error').style.display = 'none';
+            }
+            
+            // Validate email
+            if (!validateEmail(customerEmail)) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('email-error').style.display = 'none';
+            }
+            
+            // Validate phone
+            if (!validatePhone(customerPhone)) {
+                document.getElementById('phone-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('phone-error').style.display = 'none';
+            }
+            
+            // Validate payment method
+            if (!selectedPayment) {
+                alert("Please select a payment method to continue.");
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Save customer information to localStorage
+                localStorage.setItem('customerName', customerName);
+                localStorage.setItem('customerEmail', customerEmail);
+                localStorage.setItem('customerPhone', customerPhone);
+                localStorage.setItem('paymentMethod', selectedPayment);
+                
+                // Show processing message
+                alert("Processing your payment via " + selectedPayment + "...");
+                
+                // Simulate payment processing (2 seconds delay)
+                setTimeout(function() {
+                    // Show success message and redirect to home page
+                    alert("Payment completed successfully!");
+                    window.location.href = "index.html"; // Replace with your home page URL
+                }, 2000);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch values from localStorage
+            const ticketTotal = localStorage.getItem('ticketTotal') || 0;
+            const foodTotal = localStorage.getItem('foodTotal') || 0;
+            const grandTotal = localStorage.getItem('grandTotal') || 0;
+            
+            // Calculate GST (if not already stored)
+            let gstAmount = localStorage.getItem('gstAmount');
+            if (!gstAmount) {
+                // If GST isn't stored, calculate it as the difference between grand total and subtotals
+                gstAmount = grandTotal - ticketTotal - foodTotal;
+            }
+            
+            // Display values
+            document.getElementById('ticket-amount').textContent = '₹' + ticketTotal;
+            document.getElementById('food-amount').textContent = '₹' + foodTotal;
+            document.getElementById('gst-amount').textContent = '₹' + gstAmount;
+            document.getElementById('total-amount').textContent = '₹' + grandTotal;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adult Rides</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #8A2387, #E94057, #982166);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .rides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .ride {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .ride:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .ride-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .ride-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .ride:hover .ride-image img {
+            transform: scale(1.1);
+        }
+        
+        .ride-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #E94057;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .ride-content {
+            padding: 25px;
+            color: #333;
+        }
+        
+        .ride-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #8A2387;
+            font-weight: 600;
+        }
+        
+        .ride-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .back {
+            display: inline-block;
+            margin: 40px auto;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .back i {
+            margin-right: 8px;
+        }
+        
+        .back:hover {
+            background: black;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        /* Animation classes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .ride {
+            opacity: 0;
+            animation: fadeIn 0.6s forwards;
+        }
+        
+        .ride:nth-child(1) { animation-delay: 0.1s; }
+        .ride:nth-child(2) { animation-delay: 0.2s; }
+        .ride:nth-child(3) { animation-delay: 0.3s; }
+        .ride:nth-child(4) { animation-delay: 0.4s; }
+        .ride:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Thrilling Adult Rides</h1>
+        <p>Experience the ultimate adrenaline rush with our extreme attractions</p>
+    </div>
+    
+    <div class="container">
+        <div class="rides-grid">
+            <div class="ride">
+                <div class="ride-image">
+                    <img src="drop tower.jpg" alt="Drop Zone">
+                    <div class="ride-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                </div>
+                <div class="ride-content">
+                    <h2>Drop Zone</h2>
+                    <p>Feel the adrenaline rush with a sudden drop from the sky!</p>
+                </div>
+            </div>
+            
+            <div class="ride">
+                <div class="ride-image">
+                    <img src="blueberry-maki-ZqyAzWGuyKA-unsplash.jpg" alt="Extreme Roller Coaster">
+                    <div class="ride-icon">
+                        <i class="fas fa-train"></i>
+                    </div>
+                </div>
+                <div class="ride-content">
+                    <h2>Extreme Roller Coaster</h2>
+                    <p>Experience high-speed loops, turns, and breathtaking drops!</p>
+                </div>
+            </div>
+            
+            <div class="ride">
+                <div class="ride-image">
+                    <img src="giantferriswheel.avif" alt="Giant Ferris Wheel">
+                    <div class="ride-icon">
+                        <i class="fas fa-dharmachakra"></i>
+                    </div>
+                </div>
+                <div class="ride-content">
+                    <h2>Giant Ferris Wheel</h2>
+                    <p>Enjoy a breathtaking panoramic view from the top.</p>
+                </div>
+            </div>
+            
+            <div class="ride">
+                <div class="ride-image">
+                    <img src="bryan-dijkhuizen-1iViCz4Ploc-unsplash.jpg" alt="Pirate Ship">
+                    <div class="ride-icon">
+                        <i class="fas fa-ship"></i>
+                    </div>
+                </div>
+                <div class="ride-content">
+                    <h2>Pirate Ship</h2>
+                    <p>Swing high like a pirate sailing through the stormy seas!</p>
+                </div>
+            </div>
+            
+            <div class="ride">
+                <div class="ride-image">
+                    <img src="spinning coaster.avif" alt="Spinning Coaster">
+                    <div class="ride-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                </div>
+                <div class="ride-content">
+                    <h2>Spinning Coaster</h2>
+                    <p>A thrilling spinning ride with unexpected twists!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center;">
+        <a href="index.html" class="back"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+    
+    <div class="footer">
+        <p>Come discover the magic today! Open daily from 9AM to 11PM.</p>
+    </div>
+</body>
+</html>
